@@ -69,21 +69,21 @@
             </pay_read>
         </resources>
         <blocks>
-            <pay>
+            <ArCa>
                 <class>Studioone_ArCa_Block</class>
-            </pay>
+            </ArCa>
         </blocks>
         <helpers>
-            <pay>
+            <ArCa>
                 <class>Studioone_ArCa_Helper</class>
-            </pay>
+            </ArCa>
         </helpers>
     </global>
     <default>
         <payment>
-            <pay>
+            <ArCa>
                 <active>1</active>
-                <model>ArCa/pay</model>
+                <model>ArCa/ArCa</model>
                 <order_status>processing</order_status>
                 <title>Arca Payment Method</title>
                 <message>Processing Arca Payment</message>
