@@ -1,0 +1,38 @@
+<?php 
+	$session = Mage::getSingleton('checkout/session');
+	$orderIncrementId = $session->getLastRealOrderId();
+	$order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
+	$billingaddress = $order->getBillingAddress();
+	$shippingaddress = $order->getShippingAddress();
+	$currencyDesc = Mage::app()->getStore()->getCurrentCurrencyCode();
+	$totals = number_format($order->getGrandTotal(), 2, '.', ''); 
+	$address = $billingaddress->getStreet();
+	$address1 = $shippingaddress->getStreet();
+	$data = array(
+   	'hostID' => trim(Mage::getStoreConfig('payment/arca/api_hostID')),
+   	'mid' => trim(Mage::getStoreConfig('payment/arca/api_mid')),
+   	'tid' => trim(Mage::getStoreConfig('payment/arca/api_tid')),
+   	'descr' => "ORDWER#".$order->getIncrementId(),
+   	'orderID' => $order->getIncrementId(),
+   	'amount' => $totals ,
+   	'currency' => trim(Mage::getStoreConfig('payment/arca/api_currency')) ,
+   	'additionalURL' => trim(Mage::getStoreConfig('payment/arca/api_additionalURL')) ,
+	
+	);
+	
+?>
+<form action="https://world.ccavenue.com/servlet/ccw.CCAvenueController" method="post" id="redirectpay">
+	<?php foreach($data as $key => $value):	?>
+		<input type='hidden' name='<?php echo $key?>' value='<?php echo $value;?>' />
+	<?php endforeach;?>
+	<input type="submit" value='Buy Now'/> 
+</form>
+
+	<?php echo $this->__('If Page Doesn\'t Redirect In 5 Sectonds, Please press Buy button');?>
+	<script type="text/javascript">
+	function myfunc () {
+	var frm = document.getElementById("redirectpay");
+	frm.submit();
+	}
+	window.onload = myfunc;
+	</script>
