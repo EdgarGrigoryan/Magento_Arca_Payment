@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Studioone_ArCa>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Studioone_ArCa>
+    </modules>
+</config> 
