@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Studioone_ArCa
+        <Studioone_ArCa>
             <version>0.1.0</version>
-        </Studioone_ArCa
+        </Studioone_ArCa>
     </modules>
     <frontend>
         <routers>
@@ -69,24 +69,24 @@
             </pay_read>
         </resources>
         <blocks>
-            <ArCa>
+            <pay>
                 <class>Studioone_ArCa_Block</class>
-            </ArCa>
+            </pay>
         </blocks>
         <helpers>
-            <ArCa>
+            <pay>
                 <class>Studioone_ArCa_Helper</class>
-            </ArCa>
+            </pay>
         </helpers>
     </global>
     <default>
         <payment>
-            <ArCa>
+            <pay>
                 <active>1</active>
-                <model>ArCa/ArCa</model>
+                <model>pay/pay</model>
                 <order_status>processing</order_status>
                 <title>Arca Payment Method</title>
-                <message>Processing Arca Payment</message>
+                <message>Processing Payment with Arca</message>
             </pay>
          </payment>
     </default>
