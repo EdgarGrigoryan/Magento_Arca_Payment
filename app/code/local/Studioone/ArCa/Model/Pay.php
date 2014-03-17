@@ -17,7 +17,7 @@ class Studioone_ArCa_Model_Pay extends Mage_Payment_Model_Method_Purchaseorder
 	//protected $_canRefundInvoicePartial = true;
 	//protected $_canVoid                 = true;
 	//protected $_canUseInternal          = true;
-	//protected $_canUseCheckout          = true;
+	 protected $_canUseCheckout          = true;
 	//protected $_canUseForMultishipping  = true;
 	//protected $_canFetchTransactionInfo = true;
 	//protected $_canReviewPayment        = true;
