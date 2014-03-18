@@ -1,7 +1,7 @@
 <?php
-class Studioone_ArCa_Model_Pay extends Mage_Payment_Model_Method_Purchaseorder
+class Studioone_ArCa_Model_ArCa extends Mage_Payment_Model_Method_Purchaseorder
 {
-	protected $_code = 'ArCa';
+	protected $_code = 'arca';
 	protected $_formBlockType = 'pay/form_pay';
 	protected $_infoBlockType = 'pay/info_pay';
 

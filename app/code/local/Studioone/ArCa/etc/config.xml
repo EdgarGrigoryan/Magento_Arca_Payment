@@ -35,43 +35,43 @@
     		 </sales_convert_quote_payment>
     	</fieldsets>
         <models>
-            <pay>
+            <arca>
                 <class>Studioone_ArCa_Model</class>
                 <resourceModel>pay_mysql4</resourceModel>
-            </pay>
-            <pay_mysql4>
+            </arca>
+            <arcamysql4>
                 <class>Studioone_ArCa_Model_Mysql4</class>
                 <entities>
                     <pay>
                         <table>pay</table>
                     </pay>
                 </entities>
-            </pay_mysql4>
+            </arca_mysql4>
         </models>
         <resources>
-            <pay_setup>
+            <arca_setup>
                 <setup>
                     <module>Studioone_ArCa</module>
                 </setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-            </pay_setup>
-            <pay_write>
+            </arca_setup>
+            <arca_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </pay_write>
-            <pay_read>
+            </arca_write>
+            <arca_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </pay_read>
+            </arca_read>
         </resources>
         <blocks>
-            <pay>
+            <arca>
                 <class>Studioone_ArCa_Block</class>
-            </pay>
+            </arca>
         </blocks>
         <helpers>
             <pay>
@@ -81,13 +81,13 @@
     </global>
     <default>
         <payment>
-            <pay>
+            <arca>
                 <active>1</active>
-                <model>pay/pay</model>
-                <order_status>processing</order_status>
+                <model>arca/arca</model>
+                <order_status>pending</order_status>
                 <title>Arca Payment Method</title>
                 <message>Processing Payment with Arca</message>
-            </pay>
+            </arca>
          </payment>
     </default>
 </config>
