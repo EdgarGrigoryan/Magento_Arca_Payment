@@ -3,7 +3,7 @@
   <sections>
     <payment>
       <groups>
-        <arca translate="label" module="pay">
+        <arca translate="label" module="arca">
           <label>Arca Payment Module</label>
           <sort_order>670</sort_order>
           <show_in_default>1</show_in_default>
