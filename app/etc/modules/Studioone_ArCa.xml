@@ -4,6 +4,7 @@
         <Studioone_ArCa>
             <active>true</active>
             <codePool>local</codePool>
+            <depends><Mage_Payment/></depends>
         </Studioone_ArCa>
     </modules>
 </config> 

@@ -7,7 +7,7 @@
             <action method="setTemplate"><template>arca/empty.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="core/template" template="arca/pay.phtml" />
+            <block type="core/template" template="arca/arca.phtml" />
         </reference>
     </arca_index_index>
 </layout> 

@@ -48,12 +48,7 @@ class Studioone_ArCa_IndexController extends Mage_Core_Controller_Front_Action
 				$order->save();
 
 
-				/*if ($invoice = $payment->getCreatedInvoice()) {
-				 $message = Mage::helper('pay')->__('Notified customer about invoice #%s.', $invoice->getIncrementId());
-				$comment = $order->sendNewOrderEmail()->addStatusHistoryComment($message)
-				->setIsCustomerNotified(true)
-				->save();
-				}*/
+				 
 				try {
 					if(!$order->canInvoice())
 					{
@@ -75,7 +70,7 @@ class Studioone_ArCa_IndexController extends Mage_Core_Controller_Front_Action
 					->addObject($invoice->getOrder());
 
 					$transactionSave->save();
-					$message = Mage::helper('pay')->__('Notified customer about invoice #%s.', $invoice->getIncrementId());
+					//$message = Mage::helper('arca')->__('Notified customer about invoice #%s.', $invoice->getIncrementId());
 					$comment = $order->sendNewOrderEmail()->addStatusHistoryComment($message)
 					->setIsCustomerNotified(true)
 					->save();
