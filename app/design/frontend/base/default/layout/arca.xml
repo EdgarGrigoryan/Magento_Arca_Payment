@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <arca_index_index>
+    	 <reference name="root">
+            <action method="setTemplate"><template>arca/empty.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" template="arca/arca.phtml" />
+        </reference>
+        
+    </arca_index_index>
+     <checkout_cart_index>
+        <reference name="checkout.cart.top_methods">
+            <block type="arca/form_arca" name="checkout.cart.methods.arca" before="-" template="arca/payment/shortcut.phtml">
+                <action method="setIsQuoteAllowed"><value>1</value></action>
+            </block>
+        </reference>
+
+        <reference name="checkout.cart.methods">
+            <block type="paypal/form_arca" name="checkout.cart.methods.arca.bottom" before="-" template="arca/payment/shortcut.phtml">
+                <action method="setIsQuoteAllowed"><value>1</value></action>
+            </block>
+        </reference>
+
+        <update handle="SHORTCUT_popup" />
+    </checkout_cart_index>
+</layout> 

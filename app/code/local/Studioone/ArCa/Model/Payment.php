@@ -3,7 +3,7 @@
 /**
 * Our test CC module adapter
 */
-class Studioone_ArCa_Model_ArCa extends Mage_Payment_Model_Method
+class Studioone_ArCa_Model_Payment extends Mage_Payment_Model_Method
 {
     /**
     * unique internal payment method identifier
