@@ -35,14 +35,16 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>0</testmode></depends>
             </gateway_url>
             <hostID translate="label">
-              <label>API host Id</label>
+              <label>Merchant host Id</label>
               <frontend_type>text</frontend_type>
               <sort_order>35</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>0</testmode></depends>
             </hostID>
             <mid translate="label">
               <label>Merchant Id</label>
@@ -51,6 +53,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>0</testmode></depends>
             </mid>
             <tid translate="label">
               <label>Terminal Id</label>
@@ -59,6 +62,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>0</testmode></depends>
             </tid>
             <test_gateway_url translate="label">
               <label>Test Gateway URL</label>
@@ -67,22 +71,25 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>1</testmode></depends>
             </test_gateway_url>
             <test_hostID translate="label">
-              <label>Test host Id</label>
+              <label>Merchant test host Id</label>
               <frontend_type>text</frontend_type>
               <sort_order>45</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>1</testmode></depends>
             </test_hostID>
             <test_mid translate="label">
               <label>Test Merchant Id</label>
               <frontend_type>text</frontend_type>
               <sort_order>46</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
+              <show_in_default>0</show_in_default>
+              <show_in_website>0</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>1</testmode></depends>
             </test_mid>
             <test_tid translate="label">
               <label>Test Terminal Id</label>
@@ -91,6 +98,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
+			  <depends><testmode>1</testmode></depends>
             </test_tid>
            <!--
             <payment_action translate="label">
