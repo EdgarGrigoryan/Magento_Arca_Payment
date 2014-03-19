@@ -19,46 +19,33 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package     Mage_Payment
+ * @package     Studioone_ArCa
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Block for Cash On Delivery payment method form
- */
-class Studioone_ArCa_Block_Form_Arca extends Mage_Payment_Block_Form
-{
 
-    /**
-     * Instructions text
-     *
-     * @var string
-     */
-    protected $_instructions;
+$installer = $this;
+/* @var $installer Studioone_arca_Model_Mysql4_Setup */
 
-    /**
-     * Block construction. Set block template.
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('arca/form/arca.phtml');
-		Mage::log('My log entry', null, 'Studioone_ArCa_Block_Form_Arca.log');
-    }
+$installer->startSetup();
 
-    /**
-     * Get instructions text from config
-     *
-     * @return string
-     */
-    
-    public function getInstructions()
-    {
-        if (is_null($this->_instructions)) {
-            $this->_instructions = $this->getMethod()->getInstructions();
-        }
-        return $this->_instructions;
-    }
+$installer->run("
 
-}
+-- DROP TABLE IF EXISTS `{$this->getTable('arca_debug')}`;
+CREATE TABLE `{$this->getTable('arca_debug')}` (
+  `debug_id` int(10) unsigned NOT NULL auto_increment,
+  `debug_at` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `request_body` text,
+  `response_body` text,
+  PRIMARY KEY  (`debug_id`),
+  KEY `debug_at` (`debug_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    ");
+
+$installer->endSetup();
+
+$installer->addAttribute('quote_payment', 'arca_payer_id', array());
+$installer->addAttribute('quote_payment', 'arca_payer_status', array());
+$installer->addAttribute('quote_payment', 'arca_correlation_id', array());

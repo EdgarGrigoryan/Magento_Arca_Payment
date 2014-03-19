@@ -19,7 +19,7 @@
         </reference>
 
         <reference name="checkout.cart.methods">
-            <block type="paypal/form_arca" name="checkout.cart.methods.arca.bottom" before="-" template="arca/payment/shortcut.phtml">
+            <block type="arca/form_arca" name="checkout.cart.methods.arca.bottom" before="-" template="arca/payment/shortcut.phtml">
                 <action method="setIsQuoteAllowed"><value>1</value></action>
             </block>
         </reference>

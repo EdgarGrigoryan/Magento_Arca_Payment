@@ -3,7 +3,7 @@
     <modules>
        <Studioone_ArCa>
 <!-- declare module's version information for database updates -->
-          <version>0.1.1</version>
+          <version>0.1.5</version>
        </Studioone_ArCa>
     </modules>
  
@@ -13,32 +13,43 @@
             <class>Studioone_ArCa_Block</class>
         </arca>
     </blocks>
+    <events>
+            <sales_order_save_before >
+                <observers>
+                    <Studioone_ArCa_Model_Observer>
+                        <type>singleton</type>
+                        <class>Studioone_ArCa_Model_Observer</class>
+                        <method>hookOrderSaveBefore</method>
+                    </Studioone_ArCa_Model_Observer>
+                </observers>
+            </sales_order_save_before>
+    </events>
    <helpers>
         <arca>
             <class>Studioone_ArCa_Helper</class>
         </arca>
     </helpers>
-<!-- declare model group for new module -->
+
         <models>
-<!-- model group alias to be used in Mage::getModel('arca/...') -->
+
             <arca>
-<!-- base class name for the model group -->
+
                 <class>Studioone_ArCa_Model</class>
             </arca>
         </models>
  
-<!-- declare resource setup for new module -->
+
         <resources>
-<!-- resource identifier -->
+
             <arca_setup>
-<!-- specify that this resource is a setup resource and used for upgrades -->
+
                 <setup>
-<!-- which module to look for install/upgrade files in -->
+
                     <module>Studioone_ArCa</module>
                 </setup>
-<!-- specify database connection for this resource -->
+
                 <connection>
-<!-- do not create new connection, use predefined core setup connection -->
+
                     <use>core_setup</use>
                 </connection>
             </arca_setup>
@@ -54,7 +65,45 @@
             </arca_read>
         </resources>
     </global>
- 
+  <frontend>
+  	<secure_url>
+            <arca>/arca/processing</arca>
+    </secure_url>
+  	<routers>
+            <arca>
+                <use>standard</use>
+                <args>
+                    <module>Studioone_ArCa</module>
+                    <frontName>arca</frontName>
+                </args>
+            </arca>
+        </routers>
+  	<layout>
+            <updates>
+                <arca>
+                    <file>arca.xml</file>
+                </arca>
+            </updates>
+        </layout>
+  	 <events>
+            <checkout_submit_all_after>
+                <observers>
+                    <sales_save_order_after_submit>
+                        <class>arca/observer</class>
+                        <method>saveOrderAfterSubmit</method>
+                    </sales_save_order_after_submit>
+                </observers>
+            </checkout_submit_all_after>
+            <controller_action_postdispatch_checkout_onepage_saveOrder>
+                <observers>
+                    <sales_save_order_onepage>
+                        <class>arca/observer</class>
+                        <method>setResponseAfterSaveOrder</method>
+                    </sales_save_order_onepage>
+                </observers>
+            </controller_action_postdispatch_checkout_onepage_saveOrder>
+        </events>
+  </frontend>
 <!-- declare default configuration values for this module -->
     <default>
 <!-- 'payment' configuration section (tab) -->

@@ -40,7 +40,7 @@ class Studioone_ArCa_Block_Info_Arca extends Mage_Core_Block_Template
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('payment/info/default.phtml');
+        $this->setTemplate('arca/info/arca.phtml');
     }
 
     /**
