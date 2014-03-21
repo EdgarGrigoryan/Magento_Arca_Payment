@@ -85,7 +85,8 @@ class Studioone_ArCa_Model_Interface  extends Mage_Payment_Model_Method_Abstract
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 
-		if (TEST_MODE == false) {
+		if (Mage::getStoreConfig('payment/arca/testmode') !== '1') 
+		{
 			curl_setopt($ch, CURLOPT_SSLCERT, $private_cert);
 			curl_setopt($ch, CURLOPT_SSLKEY, $private_key);
 			curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $private_pass);
