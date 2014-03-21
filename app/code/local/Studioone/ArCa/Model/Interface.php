@@ -101,7 +101,7 @@ class Studioone_ArCa_Model_Interface  extends Mage_Payment_Model_Method_Abstract
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
 
 		$ret = curl_exec($ch);
-
+		Mage::log($ret, null, __CLASS__ . '.log');
 		if ($ret === false) {
 			Mage::log(curl_errorno($ch) . "#" . curl_error($ch), null, __CLASS__ . '.log');
 
