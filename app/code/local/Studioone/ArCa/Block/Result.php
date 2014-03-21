@@ -27,7 +27,7 @@
 /**
  * Block for Cash On Delivery payment method form
  */
-class Studioone_ArCa_Block_Form_Arca extends Mage_Payment_Block_Form
+class Studioone_ArCa_Block_Result extends Mage_Payment_Block_Form
 {
 
     /**
@@ -43,8 +43,8 @@ class Studioone_ArCa_Block_Form_Arca extends Mage_Payment_Block_Form
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('arca/form/arca.phtml');
-		Mage::log('My log entry', null, 'Studioone_ArCa_Block_Form_Arca.log');
+        $this->setTemplate('arca/result/arca.phtml');
+		Mage::log('My log entry', null, __CLASS__.'.log');
     }
 
     /**

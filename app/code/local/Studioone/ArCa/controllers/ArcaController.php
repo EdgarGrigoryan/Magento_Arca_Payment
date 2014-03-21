@@ -1,5 +1,5 @@
 <?php
-class Studioone_ArCa_IndexController extends Studioone_ArCa_Controller_Arca_Abstract
+class Studioone_ArCa_IndexController extends Mage_Core_Controller_Front_Action
 {
 	
 	
@@ -30,25 +30,33 @@ class Studioone_ArCa_IndexController extends Studioone_ArCa_Controller_Arca_Abst
             exit;
         }
     }
-	
+	 public function processingAction()
+    {
+        /*$session = Mage::getSingleton('checkout/session');
+        $session->setPaypalStandardQuoteId($session->getQuoteId());
+        $this->getResponse()->setBody($this->getLayout()->createBlock('arca/redirect')->toHtml());
+        $session->unsQuoteId();
+        $session->unsRedirectUrl();*/
+        echo __CLAS__.__FUNCTION__;
+    }
 	/**
      * When a customer chooses Paypal on Checkout/Payment page
      *
      */
     public function redirectAction()
     {
-        $session = Mage::getSingleton('checkout/session');
+        /*$session = Mage::getSingleton('checkout/session');
         $session->setPaypalStandardQuoteId($session->getQuoteId());
         $this->getResponse()->setBody($this->getLayout()->createBlock('arca/redirect')->toHtml());
         $session->unsQuoteId();
-        $session->unsRedirectUrl();
+        $session->unsRedirectUrl();*/
     }
 	/**
      * When a customer cancel payment from paypal.
      */
     public function cancelAction()
     {
-        $session = Mage::getSingleton('checkout/session');
+        /*$session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
         if ($session->getLastRealOrderId()) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
@@ -56,7 +64,7 @@ class Studioone_ArCa_IndexController extends Studioone_ArCa_Controller_Arca_Abst
                 $order->cancel()->save();
             }
         }
-        $this->_redirect('checkout/cart');
+        $this->_redirect('checkout/cart');*/
     }
 
     /**
@@ -67,9 +75,9 @@ class Studioone_ArCa_IndexController extends Studioone_ArCa_Controller_Arca_Abst
      */
     public function  successAction()
     {
-        $session = Mage::getSingleton('checkout/session');
+        /*$session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
         Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false)->save();
-        $this->_redirect('checkout/onepage/success', array('_secure'=>true));
+        $this->_redirect('checkout/onepage/success', array('_secure'=>true));*/
     }
 }

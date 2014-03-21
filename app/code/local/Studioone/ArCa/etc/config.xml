@@ -1,126 +1,122 @@
 <?xml version="1.0"?>
 <config>
-    <modules>
-       <Studioone_ArCa>
-<!-- declare module's version information for database updates -->
-          <version>0.1.5</version>
-       </Studioone_ArCa>
-    </modules>
- 
-    <global>
-    <blocks>
-        <arca>
-            <class>Studioone_ArCa_Block</class>
-        </arca>
-    </blocks>
-    <events>
-            <sales_order_save_before >
-                <observers>
-                    <Studioone_ArCa_Model_Observer>
-                        <type>singleton</type>
-                        <class>Studioone_ArCa_Model_Observer</class>
-                        <method>hookOrderSaveBefore</method>
-                    </Studioone_ArCa_Model_Observer>
-                </observers>
-            </sales_order_save_before>
-    </events>
-   <helpers>
-        <arca>
-            <class>Studioone_ArCa_Helper</class>
-        </arca>
-    </helpers>
+	<modules>
+		<Studioone_ArCa>
+			<!-- declare module's version information for database updates -->
+			<version>0.1.5</version>
+		</Studioone_ArCa>
+	</modules>
+	<global>
+		<blocks>
+			<arca>
+				<class>Studioone_ArCa_Block</class>
+			</arca>
+		</blocks>
+		<events>
+			<sales_order_save_before >
+				<observers>
+					<Studioone_ArCa_Model_Observer>
+						<type>singleton</type>
+						<class>Studioone_ArCa_Model_Observer</class>
+						<method>hookOrderSaveBefore</method>
+					</Studioone_ArCa_Model_Observer>
+				</observers>
+			</sales_order_save_before>
+		</events>
+		<helpers>
+			<arca>
+				<class>Studioone_ArCa_Helper</class>
+			</arca>
+		</helpers>
+		<models>
 
-        <models>
+			<arca>
 
-            <arca>
+				<class>Studioone_ArCa_Model</class>
+			</arca>
+		</models>
+		<resources>
 
-                <class>Studioone_ArCa_Model</class>
-            </arca>
-        </models>
- 
+			<arca_setup>
 
-        <resources>
+				<setup>
 
-            <arca_setup>
+					<module>Studioone_ArCa</module>
+				</setup>
+				<connection>
 
-                <setup>
-
-                    <module>Studioone_ArCa</module>
-                </setup>
-
-                <connection>
-
-                    <use>core_setup</use>
-                </connection>
-            </arca_setup>
-            <arca_write>
-                <connection>
-                  <use>core_write</use>
-                </connection>
-            </arca_write>
-            <arca_read>
-               <connection>
-                <use>core_read</use>
-              </connection>
-            </arca_read>
-        </resources>
-    </global>
-  <frontend>
-  	<secure_url>
-            <arca>/arca/processing</arca>
-    </secure_url>
-  	<routers>
-            <arca>
-                <use>standard</use>
-                <args>
-                    <module>Studioone_ArCa</module>
-                    <frontName>arca</frontName>
-                </args>
-            </arca>
-        </routers>
-  	<layout>
-            <updates>
-                <arca>
-                    <file>arca.xml</file>
-                </arca>
-            </updates>
-        </layout>
-  	 <events>
-            <checkout_submit_all_after>
-                <observers>
-                    <sales_save_order_after_submit>
-                        <class>arca/observer</class>
-                        <method>saveOrderAfterSubmit</method>
-                    </sales_save_order_after_submit>
-                </observers>
-            </checkout_submit_all_after>
-            <controller_action_postdispatch_checkout_onepage_saveOrder>
-                <observers>
-                    <sales_save_order_onepage>
-                        <class>arca/observer</class>
-                        <method>setResponseAfterSaveOrder</method>
-                    </sales_save_order_onepage>
-                </observers>
-            </controller_action_postdispatch_checkout_onepage_saveOrder>
-        </events>
-  </frontend>
-<!-- declare default configuration values for this module -->
-    <default>
-<!-- 'payment' configuration section (tab) -->
-        <payment>
-<!-- 'arca' configuration group (fieldset) -->
-            <arca>
-<!-- by default this payment method is inactive -->
-                <active>0</active>
-<!-- model to handle logic for this payment method -->
-                <model>arca/payment</model>
-<!-- order status for new orders paid by this payment method -->
-                <order_status>pending</order_status>
-<!-- default title for payment checkout page and order view page -->
-                <title>ArCa Payment</title>
+					<use>core_setup</use>
+				</connection>
+			</arca_setup>
+			<arca_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</arca_write>
+			<arca_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</arca_read>
+		</resources>
+	</global>
+	<frontend>
+		<secure_url>
+			<arca>/arca/processing</arca>
+			<arca>/arca/processing/result</arca>
+		</secure_url>
+		<routers>
+			<arca>
+				<use>standard</use>
+				<args>
+					<module>Studioone_ArCa</module>
+					<frontName>arca</frontName>
+				</args>
+			</arca>
+		</routers>
+		<layout>
+			<updates>
+				<arca>
+					<file>arca.xml</file>
+				</arca>
+			</updates>
+		</layout>
+		<events>
+			<checkout_submit_all_after>
+				<observers>
+					<sales_save_order_after_submit>
+						<class>arca/observer</class>
+						<method>saveOrderAfterSubmit</method>
+					</sales_save_order_after_submit>
+				</observers>
+			</checkout_submit_all_after>
+			<controller_action_postdispatch_checkout_onepage_saveOrder>
+				<observers>
+					<sales_save_order_onepage>
+						<class>arca/observer</class>
+						<method>setResponseAfterSaveOrder</method>
+					</sales_save_order_onepage>
+				</observers>
+			</controller_action_postdispatch_checkout_onepage_saveOrder>
+		</events>
+	</frontend>
+	<!-- declare default configuration values for this module -->
+	<default>
+		<!-- 'payment' configuration section (tab) -->
+		<payment>
+			<!-- 'arca' configuration group (fieldset) -->
+			<arca>
+				<!-- by default this payment method is inactive -->
+				<active>0</active>
+				<!-- model to handle logic for this payment method -->
+				<model>arca/payment</model>
+				<!-- order status for new orders paid by this payment method -->
+				<order_status>pending</order_status>
+				<!-- default title for payment checkout page and order view page -->
+				<title>ArCa Payment</title>
 				<payment_action>authorize</payment_action>
-                <allowspecific>0</allowspecific>
-            </arca>
-         </payment>
-    </default>
+				<allowspecific>0</allowspecific>
+			</arca>
+		</payment>
+	</default>
 </config>

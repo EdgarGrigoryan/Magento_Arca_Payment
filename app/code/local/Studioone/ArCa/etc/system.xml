@@ -83,7 +83,7 @@
 			  <depends><testmode>1</testmode></depends>
             </test_gateway_url>
             <test_hostID translate="label">
-              <label>Merchant test host Id</label>
+              <label>Test host Id</label>
               <frontend_type>text</frontend_type>
               <sort_order>45</sort_order>
               <show_in_default>1</show_in_default>
@@ -95,8 +95,8 @@
               <label>Test Merchant Id</label>
               <frontend_type>text</frontend_type>
               <sort_order>46</sort_order>
-              <show_in_default>0</show_in_default>
-              <show_in_website>0</show_in_website>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
 			  <depends><testmode>1</testmode></depends>
             </test_mid>

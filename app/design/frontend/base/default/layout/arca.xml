@@ -26,4 +26,42 @@
 
         <update handle="SHORTCUT_popup" />
     </checkout_cart_index>
+    <arca_processing_result translate="label">
+ 	
+        <label>Payment Result Action</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <!-- Mage_Checkout -->
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+           <action method="addJs"><script>arca/arca.js</script></action>
+           <action method="addCss"><stylesheet>arca/css/arca.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+              <block type="arca/result" name="form.result"/> 
+        </reference>
+        
+    </arca_processing_result>
+ 	<arca_processing_index translate="label">
+ 	
+        <label>Payment Form Page</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <!-- Mage_Checkout -->
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+           <action method="addJs"><script>arca/arca.js</script></action>
+           <action method="addCss"><stylesheet>arca/css/arca.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+              <block type="arca/form_arca" name="form.arca">
+              	
+              </block>	
+        </reference>
+        
+    </arca_processing_index>
 </layout> 
