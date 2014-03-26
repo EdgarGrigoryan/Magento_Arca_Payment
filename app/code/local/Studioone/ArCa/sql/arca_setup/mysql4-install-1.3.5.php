@@ -19,13 +19,15 @@ $installer = $this;
 $installer->startSetup();
 
     $installer->run("
-    DROP TABLE IF EXISTS  `{$installer->getTable('arca/transactions')}`;
-    CREATE TABLE `{$installer->getTable('arca/transactions')}` (
+    DROP TABLE IF EXISTS  `{$installer->getTable('arca_transactions')}`;
+    CREATE TABLE `{$installer->getTable('arca_transactions')}` (
        `transaction_id` int(10) unsigned NOT NULL auto_increment,
        `order_id` int(10) NULL,
+       `store_id` int(10) NULL,
+       `order_id` int(10) NULL,
        `customer_id` int(10) NULL,
-       `crated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-       `status_changed` timestamp NOT NULL,
+       `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+       `update_date` timestamp NOT NULL,
        `total` decimal(10,2) NOT NULL,
        `status` varchar(256) NOT NULL,
        PRIMARY KEY  (`transaction_id`)

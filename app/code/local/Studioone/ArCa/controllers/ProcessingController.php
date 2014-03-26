@@ -72,7 +72,13 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
              ->getLayout()->getBlock('head')->setTitle($this->__('Arca Payment'));
              $this->renderLayout();
 	 }
- 
+ /**
+     * @return Mage_Customer_Model_Customer
+     */
+     protected function _getCustomer()
+     {
+        return Mage::getSingleton('customer/session')->getCustomer();
+     }
 	 public function indexAction()
 	 {
 	 	
@@ -86,6 +92,13 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
             ->getLayout()->getBlock('head')->setTitle($this->__('Arca Payment'));
         $this->renderLayout();
 	 	
+		$model = Mage::getModel('arca/transactions');
+        
+        $model->setCustomerId($this->_getCustomer()->getId());
+        
+        $model->setStoreId(Mage::app()->getStore()->getId());
+        $model->setCreateDate(date('Y-m-d h:i:s'));
+        $model->save();
 	 	
 	 	Mage::log($_getCheckout->getLastOrderId(), null, __CLASS__.'.log');
 	 	
