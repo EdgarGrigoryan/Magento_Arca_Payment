@@ -32,14 +32,14 @@
 			<arca>
 				<class>Studioone_ArCa_Model</class>
 			</arca>
-			<arca_mysql4>
+			<arca_resource>
 				<class>Studioone_ArCa_Model_Resource</class>
 				<entities>
 					<transactions>
 						<table>arca_transactions</table>
 					</transactions>
 				</entities>
-			</arca_mysql4>
+			</arca_resource>
 		</models>
 		<resources>
 			<arca_setup>
