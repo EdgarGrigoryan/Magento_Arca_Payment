@@ -13,7 +13,7 @@
 			</arca>
 		</blocks>
 		<events>
-			<sales_order_save_before >
+			<sales_order_save_before>
 				<observers>
 					<Studioone_ArCa_Model_Observer>
 						<type>singleton</type>
@@ -34,6 +34,14 @@
 
 				<class>Studioone_ArCa_Model</class>
 			</arca>
+			<studioone_arca_resources>
+					<class>Studioone_ArCa_Model_Resource</class>
+                <entities>
+                    <transactions>
+                        <table>smasoft_oneclickorder_transactions</table>
+                    </transactions>
+                </entities>
+			</studioone_arca_resources>
 		</models>
 		<resources>
 
