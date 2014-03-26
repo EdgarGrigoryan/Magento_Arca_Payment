@@ -24,6 +24,8 @@ class Studioone_ArCa_Model_Transactions extends Mage_Core_Model_Abstract
      */
     protected function _construct()
     {
+    	parent::_construct();
+		
         $this->_init('studioone_arca/transactions');
     }
       
