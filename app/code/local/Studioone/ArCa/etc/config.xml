@@ -3,7 +3,7 @@
 	<modules>
 		<Studioone_ArCa>
 			<!-- declare module's version information for database updates -->
-			<version>0.2.5</version>
+			<version>1.2.8</version>
 		</Studioone_ArCa>
 	</modules>
 	<global>
