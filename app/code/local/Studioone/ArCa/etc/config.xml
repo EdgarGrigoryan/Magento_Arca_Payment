@@ -32,14 +32,15 @@
 			<arca>
 				<class>Studioone_ArCa_Model</class>
 			</arca>
-			<studioone_arca_resource>
+			<arca_resource>
 				<class>Studioone_ArCa_Model_Resource</class>
+				<resourceModel>arca_transactions</resourceModel>
 				<entities>
 					<transactions>
 						<table>arca_transactions</table>
 					</transactions>
 				</entities>
-			</studioone_arca_resource>
+			</arca_resource>
 		</models>
 		<resources>
 			<arca_setup>

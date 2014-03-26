@@ -88,6 +88,8 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 
 		Mage::log($_getCheckout -> getLastOrderId(), null, __CLASS__ . '.log');
 		$order = $this -> _getOrder($_getCheckout -> getLastOrderId());
+		
+		print_r($order);
 		Mage::log($order -> getGrandTotal(), null, __CLASS__ . '.log');
 		 
 		try {
