@@ -19,8 +19,8 @@ $installer = $this;
 $installer->startSetup();
 
     $installer->run("
-    DROP TABLE IF EXISTS  `{$installer->getTable('studioone_arca/transactions')}`;
-    CREATE TABLE `{$installer->getTable('studioone_arca/transactions')}` (
+    DROP TABLE IF EXISTS  `{$installer->getTable('arca/transactions')}`;
+    CREATE TABLE `{$installer->getTable('arca/transactions')}` (
        `transaction_id` int(10) unsigned NOT NULL auto_increment,
        `order_id` int(10) NULL,
        `customer_id` int(10) NULL,

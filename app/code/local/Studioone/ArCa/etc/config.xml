@@ -29,26 +29,22 @@
 			</arca>
 		</helpers>
 		<models>
-
 			<arca>
-
 				<class>Studioone_ArCa_Model</class>
 			</arca>
-			<studioone_arca_resources>
-					<class>Studioone_ArCa_Model_Resource</class>
-                <entities>
-                    <transactions>
-                        <table>smasoft_oneclickorder_transactions</table>
-                    </transactions>
-                </entities>
-			</studioone_arca_resources>
+			<arca_mysql4>
+				<class>Studioone_ArCa_Model_Resource</class>
+				<entities>
+					<transactions>
+						<table>arca_transactions</table>
+					</transactions>
+				</entities>
+			</arca_mysql4>
 		</models>
 		<resources>
-
 			<arca_setup>
 
 				<setup>
-
 					<module>Studioone_ArCa</module>
 				</setup>
 				<connection>
