@@ -60,7 +60,7 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 
 	protected function _getOrder($orderIncrementId) {
 
-		return $order = Mage::getModel('sales/order') -> loadByIncrementId($orderIncrementId);
+		return $order = Mage::getModel('sales/order') -> load($orderIncrementId);
 	}
 
 	/**
@@ -89,8 +89,9 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 		Mage::log($_getCheckout -> getLastOrderId(), null, __CLASS__ . '.log');
 		$order = $this -> _getOrder($_getCheckout -> getLastOrderId());
 		Mage::log($order -> getGrandTotal(), null, __CLASS__ . '.log');
-
+		 
 		try {
+				
 			$model = Mage::getModel('arca/transactions');
 			$model -> setCustomerId($this -> _getCustomer() -> getId());
 			$model -> setStoreId(Mage::app() -> getStore() -> getId());
@@ -99,7 +100,11 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 			$model -> setUpdateDate(date('Y-m-d h:i:s'));
 			$model -> setTotal($order -> getGrandTotal());
 			$model -> setStatus('pendding');
+			
+			print_r($model);
 			$model -> save();
+			
+			die;
 			return $model;
 		} catch(Mage_Core_Exception $e) {
 			Mage::log($e -> getMessage(), null, __CLASS__ . '.log');
