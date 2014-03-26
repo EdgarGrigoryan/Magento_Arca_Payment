@@ -26,7 +26,7 @@ class Studioone_ArCa_Model_Resource_Transactions extends Mage_Core_Model_Mysql4_
      */
     protected function _construct()
     {
-        $this->_init('smasoft_oneclickorder/transactions', 'transaction_id');
+        $this->_init('studioone_arca/transactions', 'transaction_id');
     }
 
 

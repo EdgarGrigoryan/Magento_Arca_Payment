@@ -3,7 +3,7 @@
 	<modules>
 		<Studioone_ArCa>
 			<!-- declare module's version information for database updates -->
-			<version>1.4.0</version>
+			<version>1.4.1</version>
 		</Studioone_ArCa>
 	</modules>
 	<global>
@@ -32,14 +32,14 @@
 			<arca>
 				<class>Studioone_ArCa_Model</class>
 			</arca>
-			<arca_resource>
+			<studioone_arca_resource>
 				<class>Studioone_ArCa_Model_Resource</class>
 				<entities>
 					<transactions>
 						<table>arca_transactions</table>
 					</transactions>
 				</entities>
-			</arca_resource>
+			</studioone_arca_resource>
 		</models>
 		<resources>
 			<arca_setup>

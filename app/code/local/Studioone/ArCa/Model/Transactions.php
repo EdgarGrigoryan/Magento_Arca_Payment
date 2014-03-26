@@ -19,5 +19,12 @@
  */
 class Studioone_ArCa_Model_Transactions extends Mage_Core_Model_Abstract
 {
-		
+	/**
+     * Initialize resources
+     */
+    protected function _construct()
+    {
+        $this->_init('studioone_arca/transactions');
+    }
+      
 }
