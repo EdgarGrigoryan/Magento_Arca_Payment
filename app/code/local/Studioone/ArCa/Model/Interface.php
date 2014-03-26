@@ -117,10 +117,10 @@ class Studioone_ArCa_Model_Interface  extends Mage_Payment_Model_Method_Abstract
 
 	// convert arca response into array
 	public function convertResponse($lines) {
-		$result = json_decode($lines);
-
-		//echo '<pre>';print_r($result->result);
-
+		$result = json_decode($lines,true);
+		
+		echo '<pre>';var_dump($result);
+die($lines);
 		return get_object_vars($result -> result);
 	}
 
