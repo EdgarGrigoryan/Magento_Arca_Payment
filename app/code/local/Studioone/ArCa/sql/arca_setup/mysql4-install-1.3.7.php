@@ -24,7 +24,6 @@ $installer->startSetup();
        `transaction_id` int(10) unsigned NOT NULL auto_increment,
        `order_id` int(10) unsigned NOT NULL,
        `store_id` int(10) unsigned NOT NULL,
-       `order_id` int(10) unsigned NOT NULL,
        `customer_id` int(10) unsigned NOT NULL,
        `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
        `update_date` timestamp NOT NULL,
