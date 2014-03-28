@@ -116,12 +116,42 @@ class Studioone_ArCa_Model_Interface  extends Mage_Payment_Model_Method_Abstract
 	}
 
 	// convert arca response into array
-	public function convertResponse($lines) {
-		$result = json_decode($lines,true);
+	public function convertResponse($data) 
+	{
 		
-		echo '<pre>';var_dump($result);
-die($lines);
-		return get_object_vars($result -> result);
+		echo '<pre>';
+		if(strstr($data, '}{'))
+		{ 
+			$lines = explode('}{', $data);
+		}else
+		{
+			$lines = array($data);
+		}
+		foreach ($lines as $key => $value) {
+			
+			
+			if(substr($value, 0,1) !== '{')
+			{
+				$value= '{'.$value;
+			}
+			
+			
+			if(substr($value, -1,1) !== '}')
+			{
+				$value= $value.'}';
+			}
+			
+			 
+			$decoded = json_decode($value);	
+			 
+			$results[]= $decoded->result;
+		}
+
+		
+		
+		 
+
+		return $results;
 	}
 
 	public function arca_batch_ok($order_id) {

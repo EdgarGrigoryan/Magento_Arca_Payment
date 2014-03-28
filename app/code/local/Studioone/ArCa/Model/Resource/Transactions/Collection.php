@@ -22,7 +22,7 @@ class Studioone_ArCa_Model_Resource_Transactions_Collection extends Mage_Core_Mo
      */
     protected function _construct()
     {
-        $this->_init('studioone_arca/transactions');
+        $this->_init('arca/transactions');
     }
 
 

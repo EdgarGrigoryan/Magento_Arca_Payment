@@ -3,9 +3,8 @@ $session = Mage::getSingleton('checkout/session');
 $orderIncrementId = $session->getLastRealOrderId();
 $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 $isTestMode = Mage::getStoreConfig('payment/arca/testmode') == '1' ? 'test_':'';
-$transactionId = Mage::getSingleton('checkout/session')->getArcaTransactionId();
-  
-$urlString = Mage::getUrl('arca/processing/result', array('_secure' => false, '_current' => true,'order_id'=>$order->getId()));
+$transactionId = $this->getArcaTransactionId();
+$urlString = Mage::getUrl('arca/processing/result', array('_secure' => false, '_current' => true,'order_id'=>$transactionId ));
 $url = Mage::getSingleton('core/url')->parseUrl($urlString);
 $path = $url->getPath();
 $gateway_url =Mage::getStoreConfig("payment/arca/{$isTestMode}gateway_url");
@@ -14,13 +13,14 @@ $data = array
 'hostID'=>Mage::getStoreConfig("payment/arca/{$isTestMode}hostID")	,
 'tid'=>Mage::getStoreConfig("payment/arca/{$isTestMode}tid")	,
 'mid'=>Mage::getStoreConfig("payment/arca/{$isTestMode}mid")	,
-'orderID'=>$transactionId	,
+'orderID'=>$this->getArcaTransactionId()	,
 'currency'=>'051'	,
 'amount'=>$this->normaizePrice($order->getGrandTotal())	,
 'additionalURL'=>	$path
-
-
 );
+
+ 
+
 ?>
 <form method="post" action="<?php echo $gateway_url?>">
 

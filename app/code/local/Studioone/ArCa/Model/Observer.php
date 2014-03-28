@@ -24,6 +24,8 @@
     public function saveOrderAfterSubmit($observer){ Mage::log(__FUNCTION__ , null, __CLASS__.'.log');}
     public function hookOrderSaveBefore($observer)
     {
+    	
+		Mage::log(__FUNCTION__ , null, __CLASS__.'.log');
         $event = $observer->getEvent();
         $order = $event->getOrder();
         $payment = $order->getPayment();

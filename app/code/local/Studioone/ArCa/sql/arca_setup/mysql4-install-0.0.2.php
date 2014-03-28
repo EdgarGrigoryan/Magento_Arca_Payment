@@ -18,9 +18,9 @@ $installer = $this;
 
 $installer->startSetup();
 
-    $installer->run("
-    DROP TABLE IF EXISTS  `{$installer->getTable('arca_transactions')}`;
-    CREATE TABLE `{$installer->getTable('arca_transactions')}` (
+
+   $installer->run("
+    CREATE TABLE IF NOT EXISTS  `{$installer->getTable('arca/transactions')}` (
        `transaction_id` int(10) unsigned NOT NULL auto_increment,
        `order_id` int(10) unsigned NOT NULL,
        `store_id` int(10) unsigned NOT NULL,
@@ -29,10 +29,16 @@ $installer->startSetup();
        `update_date` timestamp NOT NULL,
        `total` decimal(10,2) NOT NULL,
        `status` varchar(256) NOT NULL,
+       `invoce_id` int(10) unsigned DEFAULT 0,
        PRIMARY KEY  (`transaction_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    
-");
+    CREATE TABLE IF  NOT EXISTS  `{$installer->getTable('arca/transactions_log')}` (
+       `transaction_id` int(10) unsigned NOT NULL auto_increment,
+       `respcode` varchar(256) NOT NULL,
+       `descr` varchar(256) NOT NULL,
+       PRIMARY KEY  (`transaction_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+   
+	");
 
 $installer->endSetup();

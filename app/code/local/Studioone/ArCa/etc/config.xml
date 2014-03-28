@@ -3,7 +3,7 @@
 	<modules>
 		<Studioone_ArCa>
 			<!-- declare module's version information for database updates -->
-			<version>0.0.1</version>
+			<version>0.0.2</version>
 		</Studioone_ArCa>
 	</modules>
 	<global>
@@ -15,11 +15,11 @@
 		<events>
 			<sales_order_save_before>
 				<observers>
-					<Studioone_ArCa_Model_Observer>
+					<studioone_arca_model_observer>
 						<type>singleton</type>
 						<class>Studioone_ArCa_Model_Observer</class>
 						<method>hookOrderSaveBefore</method>
-					</Studioone_ArCa_Model_Observer>
+					</studioone_arca_model_observer>
 				</observers>
 			</sales_order_save_before>
 		</events>
@@ -31,14 +31,18 @@
 		<models>
 			<arca>
 				<class>Studioone_ArCa_Model</class>
+				<resourceModel>arca_resource</resourceModel>
 			</arca>
 			<arca_resource>
 				<class>Studioone_ArCa_Model_Resource</class>
-				<resourceModel>arca_transactions</resourceModel>
 				<entities>
 					<transactions>
 						<table>arca_transactions</table>
 					</transactions>
+					<transactions_log>
+						<table>arca_transactions_log</table>
+					</transactions_log>
+					
 				</entities>
 			</arca_resource>
 		</models>

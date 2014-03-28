@@ -17,56 +17,56 @@ class Studioone_ArCa_Model_Payment extends Mage_Payment_Model_Method_Abstract {
 	 * of this module to be used by frontend and backend.
 	 *
 	 * @see all flags and their defaults in Mage_Payment_Model_Method_Abstract
-	 *     
+	 *
 	 *      It is possible to have a custom dynamic logic by overloading
 	 *      public function can* for each flag respectively
 	 */
-	
+
 	/**
 	 * Is this payment method a gateway (online auth/charge) ?
 	 */
 	protected $_isGateway = true;
-	
+
 	/**
 	 * Can authorize online?
 	 */
 	protected $_canAuthorize = true;
-	
+
 	/**
 	 * Can capture funds online?
 	 */
 	protected $_canCapture = true;
-	
+
 	/**
 	 * Can capture partial amounts online?
 	 */
 	protected $_canCapturePartial = false;
-	
+
 	/**
 	 * Can refund online?
 	 */
 	protected $_canRefund = false;
-	
+
 	/**
 	 * Can void transactions online?
 	 */
 	protected $_canVoid = true;
-	
+
 	/**
 	 * Can use this payment method in administration panel?
 	 */
 	protected $_canUseInternal = false;
-	
+
 	/**
 	 * Can show this payment method as an option on checkout payment page?
 	 */
 	protected $_canUseCheckout = true;
-	
+
 	/**
 	 * Is this payment method suitable for multi-shipping checkout?
 	 */
 	protected $_canUseForMultishipping = true;
-	
+
 	/**
 	 * Can save credit card information for future processing?
 	 */
@@ -79,21 +79,28 @@ class Studioone_ArCa_Model_Payment extends Mage_Payment_Model_Method_Abstract {
 	 *      authorize, capture and void in Mage_Paygate_Model_Authorizenet
 	 */
 	public function assignData($data) {
-		if (! ($data instanceof Varien_Object)) {
-			$data = new Varien_Object ( $data );
+		if (!($data instanceof Varien_Object)) {
+			$data = new Varien_Object($data);
 		}
-		
-		$this->getInfoInstance ()->setPoNumber ( $data->getPoNumber () );
+
+		$this -> getInfoInstance() -> setPoNumber($data -> getPoNumber());
 		return $this;
 	}
+
 	/**
 	 * Return Order place redirect url
 	 *
 	 * @return string
 	 */
-	public function getOrderPlaceRedirectUrl()
-	{
-		return $this->_redirectUrl ;
+	public function getOrderPlaceRedirectUrl() {
+		$checkout = Mage::getSingleton('checkout/session');
+		$order = Mage::getModel('sales/order') -> load($checkout -> getLastOrderId());
+		$urlString = Mage::getUrl('arca/processing/index', array('_secure' => false, '_current' => true, 'order_id' => $order->getId()));
+		$url = Mage::getSingleton('core/url') -> parseUrl($urlString);
+		$path = $url -> getPath();
+
+		return $path;
 	}
+
 }
 ?>

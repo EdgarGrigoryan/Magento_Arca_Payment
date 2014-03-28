@@ -17,7 +17,7 @@
 /**
  * use Mage_Core_Model_Mysql4_Abstract for compatibility with old versions
  */
-class Studioone_ArCa_Model_Resource_Transactions extends Mage_Core_Model_Mysql4_Abstract
+class Studioone_ArCa_Model_Resource_Transactions_Log extends Mage_Core_Model_Mysql4_Abstract
 {
 
     /**
@@ -26,7 +26,7 @@ class Studioone_ArCa_Model_Resource_Transactions extends Mage_Core_Model_Mysql4_
      */
     protected function _construct()
     {
-        $this->_init('arca/transactions', 'transaction_id');
+        $this->_init('arca/transactions_log', 'transaction_id');
     }
 
 
