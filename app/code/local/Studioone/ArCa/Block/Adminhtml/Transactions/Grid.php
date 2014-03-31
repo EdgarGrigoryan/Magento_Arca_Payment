@@ -69,7 +69,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
 
     protected function _customFieldsOptions()
     {
-        /** @var $helper Smasoft_Oneclickorder_Helper_Data */
+        /** @var $helper Studioone_ArCa_Helper_Data */
         $helper = Mage::helper('studioone_arca');
         $this->addColumn('entity_id', array(
             'header' => $helper->__('#'),
@@ -85,22 +85,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
             'getter' => 'getGridCustomerName',
             'renderer' => 'smasoft_oneclickorder/adminhtml_orders_grid_renderer_customer',
         ));
-        $this->addColumn('phone', array(
-            'header' => $helper->__('Phone'),
-            'index' => 'phone',
-            'getter' => 'getFullPhoneNumber',
-            'filter_index' => 'main_table.phone',
-        ));
-
-        $this->addColumn('country', array(
-            'header' => $helper->__('country'),
-            'index' => 'country',
-            'width' => '155px',
-            'empty_option' => $helper->__('All Codes'),
-            'filter' => 'smasoft_oneclickorder/adminhtml_orders_grid_filter_filter',
-            'options' => $helper->getPhoneCodes()->toOptionArray(),
-            'filter_index' => 'main_table.country',
-        ));
+      
 
         $this->addColumn('create_date', array(
             'header' => $helper->__('Create  Date'),
@@ -111,7 +96,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
         ));
 
         if (Mage::getSingleton('admin/session')
-        	->isAllowed('sales/oneclick_order/view')) {
+        	->isAllowed('sales/arca/view')) {
             $this->addColumn('action',
                 array(
                     'header' => $helper->__('Action'),
@@ -119,13 +104,13 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
                     'actions' => array(
                         array(
                             'caption' => $helper->__('View'),
-                            'url' => $this->getUrl('*/oneclickorder/view', array('id' => '$entity_id')),
+                            'url' => $this->getUrl('*/arca/view', array('id' => '$entity_id')),
                             'field' => 'entity_id'
                         ),
                     ),
                     'filter' => false,
                     'sortable' => false,
-                    'index' => 'smasoft_oneclickorder',
+                    'index' => 'studioone_arca',
                     'is_system' => true,
                     'width' => 100
                 ));
@@ -141,8 +126,8 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
      */
     public function getRowUrl($row)
     {
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/oneclick_order/view')) {
-            return $this->getUrl('*/oneclickorder/view', array('id' => $row->getEntityId()));
+        if (Mage::getSingleton('admin/session')->isAllowed('sales/arca/view')) {
+            return $this->getUrl('*/arca/view', array('id' => $row->getEntityId()));
         }
         return null;
     }

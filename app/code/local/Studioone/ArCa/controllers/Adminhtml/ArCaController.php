@@ -7,14 +7,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * @category    Smasoft
- * @package     Smasoft_Oneclikorder
- * @copyright   Copyright (c) 2013 Slabko Michail. <l.nagash@gmail.com>
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Studioone
+ * @package     Studioone_ArCa
+
  */
 
 
-class Studioone_ArCa_Adminhtml_ArcaController extends Mage_Adminhtml_Controller_Action
+class Studioone_ArCa_Adminhtml_ArCaController extends Mage_Adminhtml_Controller_Action
 {
 
     protected function _isActionAllowed($action)
@@ -24,6 +23,7 @@ class Studioone_ArCa_Adminhtml_ArcaController extends Mage_Adminhtml_Controller_
 
     public function indexAction()
     {
+    	
         $this->loadLayout();
         $this->_initLayoutMessages('adminhtml/session');
         $this->_setActiveMenu('sales/arca');
@@ -75,6 +75,8 @@ class Studioone_ArCa_Adminhtml_ArcaController extends Mage_Adminhtml_Controller_
      */
     protected function _isAllowed()
     {
+    	
+		
         switch ($this->getRequest()->getActionName()) {
             case 'index':
             case 'grid':

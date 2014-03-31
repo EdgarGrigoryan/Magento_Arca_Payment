@@ -4,11 +4,11 @@
     <menu>
         <sales>
             <children>
-                <studioone_arca translate="title" module="studioone_arca">
-                    <title>One Click Order</title>
-                    <action>adminhtml/arca/index</action>
-                    <sort_order>11</sort_order>
-                </studioone_arca>
+                <arca translate="title" module="arca">
+                    <title>Arca Transactions</title>
+                    <action>arca/adminhtml_arca/index</action>
+                    <sort_order>20</sort_order>
+                </arca>
             </children>
         </sales>
     </menu>
@@ -18,8 +18,8 @@
                 <children>
                     <sales>
                         <children>
-                            <studioone_arca translate="title">
-                                <title>One Click Order</title>
+                            <arca translate="title">
+                                <title>Arca Transactions</title>
                                 <children>
                                     <grid translate="title">
                                         <title>Grid</title>
@@ -28,21 +28,10 @@
                                         <title>View</title>
                                     </view>
                                 </children>
-                            </studioone_arca>
+                            </arca>
                         </children>
                     </sales>
-                    <system>
-                        <children>
-                            <config>
-                                <children>
-                                    <studioone_arca translate="title" module="studioone_arca">
-                                        <title>Arca Payment</title>
-                                    </studioone_arca>
-                                </children>
-                            </config>
-                        </children>
-                    </system>
-                </children>
+                  </children>
             </admin>
         </resources>
     </acl>

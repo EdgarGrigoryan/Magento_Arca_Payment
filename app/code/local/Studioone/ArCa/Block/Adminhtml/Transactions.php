@@ -23,7 +23,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions extends Mage_Adminhtml_Block_W
     {
         $this->_blockGroup = 'studioone_arca';
         $this->_controller = 'adminhtml_orders';
-        $this->_headerText = Mage::helper('smasoft_oneclickorder')->__('Manage OneClick Orders');
+        $this->_headerText = Mage::helper('studioone_arca')->__('Manage Arca Transaction');
 
         parent::__construct();
 

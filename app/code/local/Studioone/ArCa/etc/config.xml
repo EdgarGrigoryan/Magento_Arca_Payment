@@ -6,6 +6,17 @@
 			<version>0.0.2</version>
 		</Studioone_ArCa>
 	</modules>
+	<admin>
+		<routers>
+			<arca>
+				<use>admin</use>
+				<args>
+					<module>Studioone_ArCa</module>
+					<frontName>studioone_arca</frontName>
+				</args>
+			</arca>
+		</routers>
+	</admin>
 	<global>
 		<blocks>
 			<arca>
@@ -42,7 +53,7 @@
 					<transactions_log>
 						<table>arca_transactions_log</table>
 					</transactions_log>
-					
+
 				</entities>
 			</arca_resource>
 		</models>
@@ -82,6 +93,7 @@
 					<frontName>arca</frontName>
 				</args>
 			</arca>
+
 		</routers>
 		<layout>
 			<updates>
