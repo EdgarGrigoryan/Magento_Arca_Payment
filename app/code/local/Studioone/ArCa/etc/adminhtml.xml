@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<config>
+    <menu>
+        <sales>
+            <children>
+                <studioone_arca translate="title" module="studioone_arca">
+                    <title>One Click Order</title>
+                    <action>adminhtml/arca/index</action>
+                    <sort_order>11</sort_order>
+                </studioone_arca>
+            </children>
+        </sales>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <studioone_arca translate="title">
+                                <title>One Click Order</title>
+                                <children>
+                                    <grid translate="title">
+                                        <title>Grid</title>
+                                    </grid>
+                                    <view translate="title">
+                                        <title>View</title>
+                                    </view>
+                                </children>
+                            </studioone_arca>
+                        </children>
+                    </sales>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <studioone_arca translate="title" module="studioone_arca">
+                                        <title>Arca Payment</title>
+                                    </studioone_arca>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
