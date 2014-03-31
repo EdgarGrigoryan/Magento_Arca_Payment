@@ -12,7 +12,7 @@
 				<use>admin</use>
 				<args>
 					<module>Studioone_ArCa</module>
-					<frontName>studioone_arca</frontName>
+					<frontName>arca</frontName>
 				</args>
 			</arca>
 		</routers>

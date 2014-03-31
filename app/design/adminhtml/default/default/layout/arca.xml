@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<layout>
+
+	<arca_adminhtml_arca_index>
+		<reference name="content">
+			<block type="arca/adminhtml_transactions" name="adminhtml_transactions_index"/>
+		</reference>
+	</arca_adminhtml_arca_index>
+	<arca_adminhtml_arcatransaction_view>
+		<reference name="content">
+			<block type="arca/adminhtml_transactions_view" name="sales_order_edit"/>
+		</reference>
+		<reference name="left">
+			<block type="arca/adminhtml_transactions_view_tabs" name="sales_order_tabs">
+				<block type="arca/adminhtml_transactions_view_tab_view" name="order_tab_info"
+				template="arca/view.phtml">
+					<block type="arca/adminhtml_transactions_view_totals" name="order_totals"
+					template="sales/order/totals.phtml"/>
+				</block>
+				<action method="addTab">
+					<name>order_info</name>
+					<block>order_tab_info</block>
+				</action>
+				<action method="addTab">
+					<name>order_items</name>
+					<block>arca/adminhtml_transactions_view_tab_cart</block>
+				</action>
+			</block>
+		</reference>
+	</arca_adminhtml_arcatransaction_view>
+
+</layout>

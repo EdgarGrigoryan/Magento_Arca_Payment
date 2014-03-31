@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+	<tabs>
+        <arca translate="label">
+            <label>Arca PAyment</label>
+            <sort_order>1000</sort_order>
+        </arca>
+    </tabs>
   <sections>
     <payment>
       <groups>

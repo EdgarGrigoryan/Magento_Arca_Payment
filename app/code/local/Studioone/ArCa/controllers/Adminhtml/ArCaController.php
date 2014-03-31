@@ -24,10 +24,12 @@ class Studioone_ArCa_Adminhtml_ArCaController extends Mage_Adminhtml_Controller_
     public function indexAction()
     {
     	
+		
         $this->loadLayout();
-        $this->_initLayoutMessages('adminhtml/session');
+		$this->_initLayoutMessages('adminhtml/session');
         $this->_setActiveMenu('sales/arca');
         $this->renderLayout();
+		
     }
 
     /**

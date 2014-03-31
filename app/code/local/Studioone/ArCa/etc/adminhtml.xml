@@ -1,38 +1,45 @@
 <?xml version="1.0"?>
-
 <config>
-    <menu>
-        <sales>
-            <children>
-                <arca translate="title" module="arca">
-                    <title>Arca Transactions</title>
-                    <action>arca/adminhtml_arca/index</action>
-                    <sort_order>20</sort_order>
-                </arca>
-            </children>
-        </sales>
-    </menu>
-    <acl>
-        <resources>
-            <admin>
-                <children>
-                    <sales>
-                        <children>
-                            <arca translate="title">
-                                <title>Arca Transactions</title>
-                                <children>
-                                    <grid translate="title">
-                                        <title>Grid</title>
-                                    </grid>
-                                    <view translate="title">
-                                        <title>View</title>
-                                    </view>
-                                </children>
-                            </arca>
-                        </children>
-                    </sales>
-                  </children>
-            </admin>
-        </resources>
-    </acl>
+
+	<global>
+		<helpers>
+			<arca>
+				<class>Studioone_ArCa_Helper</class>
+			</arca>
+		</helpers>
+	</global>
+	<menu>
+		<sales>
+			<children>
+				<arca translate="title" module="arca">
+					<title>Arca Transactions</title>
+					<action>arca/adminhtml_arca/index</action>
+					<sort_order>20</sort_order>
+				</arca>
+			</children>
+		</sales>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<sales>
+						<children>
+							<arca translate="title">
+								<title>Arca Transactions</title>
+								<children>
+									<grid translate="title">
+										<title>Grid</title>
+									</grid>
+									<view translate="title">
+										<title>View</title>
+									</view>
+								</children>
+							</arca>
+						</children>
+					</sales>
+				</children>
+			</admin>
+		</resources>
+	</acl>
 </config>

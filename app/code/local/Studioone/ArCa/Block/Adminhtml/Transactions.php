@@ -27,7 +27,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions extends Mage_Adminhtml_Block_W
 
         parent::__construct();
 
-        $this->_removeButton('add');
+       // $this->_removeButton('add');
 
     }
 
