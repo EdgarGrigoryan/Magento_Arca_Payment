@@ -13,7 +13,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Smasoft_Oneclickorder_Block_Adminhtml_Orders_Grid_Filter_Filter extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
+class Studioone_ArCa_Block_Block_Adminhtml_Orders_Grid_Filter_Filter extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
 
     protected function _getOptions()

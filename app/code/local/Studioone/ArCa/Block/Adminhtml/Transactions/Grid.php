@@ -36,7 +36,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
     protected function _prepareCollectionBefore()
     {
         /** @var $collection Smasoft_Oneclickorder_Model_Resource_Order_Collection */
-        $collection = Mage::getModel('studioone_arca/arca')->getCollection();
+        $collection = Mage::getModel('arca/transactions')->getCollection();
         $collection->getSelect();
         $collection->joinCustomerAttribute('firstname');
         $collection->joinCustomerAttribute('lastname');
@@ -70,27 +70,51 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
     protected function _customFieldsOptions()
     {
         /** @var $helper Studioone_ArCa_Helper_Data */
-        $helper = Mage::helper('studioone_arca');
-        $this->addColumn('entity_id', array(
+        $helper = Mage::helper('arca');
+        $this->addColumn('transaction_id', array(
             'header' => $helper->__('#'),
             'width' => '10px',
-            'index' => 'entity_id',
-            'filter_index' => 'main_table.entity_id',
+            'index' => 'transaction_id',
+            'filter_index' => 'transaction_id',
         ));
 
-
+		$this->addColumn('order_id', array(
+            'header' => $helper->__('order_id'),
+            'width' => '10px',
+            'index' => 'order_id',
+            'filter_index' => 'order_id',
+        ));
+		$this->addColumn('status', array(
+            'header' => $helper->__('status'),
+            'index' => 'status',
+            'filter_index' => 'status',
+        ));
+		
         $this->addColumn('customer_id', array(
             'header' => $helper->__('Customer Name'),
             'index' => 'customer_id',
-            'getter' => 'getGridCustomerName',
-            'renderer' => 'smasoft_oneclickorder/adminhtml_orders_grid_renderer_customer',
+            // 'getter' => 'getGridCustomerName',
+            // 'renderer' => 'arca/adminhtml_transactions_grid_renderer_customer',
         ));
       
 
+        $this->addColumn('invoce_id', array(
+            'header' => $helper->__('Invoce'),
+            'index' => 'invoce_id',
+             
+        ));
+      
         $this->addColumn('create_date', array(
             'header' => $helper->__('Create  Date'),
             'index' => 'create_date',
             'filter_index' => 'create_date',
+            'type' => 'datetime',
+            'width' => '220px',
+        ));
+		 $this->addColumn('update_date', array(
+            'header' => $helper->__('Update date'),
+            'index' => 'update_date',
+            'filter_index' => 'update_date',
             'type' => 'datetime',
             'width' => '220px',
         ));
@@ -105,12 +129,12 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_Grid extends Mage_Adminhtml_Bl
                         array(
                             'caption' => $helper->__('View'),
                             'url' => $this->getUrl('*/arca/view', array('id' => '$entity_id')),
-                            'field' => 'entity_id'
+                            'field' => 'transaction_id'
                         ),
                     ),
                     'filter' => false,
                     'sortable' => false,
-                    'index' => 'studioone_arca',
+                    'index' => 'arca',
                     'is_system' => true,
                     'width' => 100
                 ));

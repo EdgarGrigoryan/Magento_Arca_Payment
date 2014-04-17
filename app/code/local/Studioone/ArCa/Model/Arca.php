@@ -155,10 +155,10 @@ class  Studioone_ArCa_Model_Arca extends Mage_Payment_Model_Method_Abstract
      */
     public function initialize($paymentAction, $stateObject)
     {
-        $state = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
+        /* $state = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
         $stateObject->setState($state);
         $stateObject->setStatus('pending_payment');
-        $stateObject->setIsNotified(false);
+        $stateObject->setIsNotified(false); */
     }
 
     /**

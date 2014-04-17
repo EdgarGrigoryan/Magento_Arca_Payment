@@ -27,6 +27,8 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_View extends Mage_Adminhtml_Bl
         $this->_removeButton('delete');
         $this->_removeButton('reset');
         $this->_removeButton('save');
+        $this->_addButton('check');
+        $this->_removeButton('confirm');
         $this->setId('sales_order_view');
 
     }

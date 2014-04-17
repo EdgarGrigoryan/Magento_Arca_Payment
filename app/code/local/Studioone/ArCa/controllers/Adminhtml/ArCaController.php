@@ -18,13 +18,15 @@ class Studioone_ArCa_Adminhtml_ArCaController extends Mage_Adminhtml_Controller_
 
     protected function _isActionAllowed($action)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/arca/' . $action);
+       // return Mage::getSingleton('admin/session')->isAllowed('sales/arca/' . $action);
+       
+       return true;
     }
 
     public function indexAction()
     {
     	
-		
+		Mage::log(print_r($arcaRespons, 1), null, __CLASS__ . '.log');
         $this->loadLayout();
 		$this->_initLayoutMessages('adminhtml/session');
         $this->_setActiveMenu('sales/arca');

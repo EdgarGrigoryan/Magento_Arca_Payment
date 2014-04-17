@@ -28,10 +28,10 @@ class Studioone_ArCa_Model_Transactions extends Mage_Core_Model_Abstract
 		
         $this->_init('arca/transactions');
     }
-    public function load($id,$field = NULL)
+    public function load($id,$field = 'transaction_id')
     {
     	Mage::log("load($id,$field)", null, __CLASS__ . '.log');
-    	return parent::load($id);
+    	return parent::load($id,$field );
     }
     public function getId()
     {

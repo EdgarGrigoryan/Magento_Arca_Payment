@@ -18,7 +18,7 @@
 /**
  * Сustomer field grid renderer
  */
-class Smasoft_Oneclickorder_Block_Adminhtml_Orders_Grid_Renderer_Customer extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Studioone_ArCa_Block_Block_Adminhtml_Orders_Grid_Renderer_Customer extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * @param Varien_Object $row

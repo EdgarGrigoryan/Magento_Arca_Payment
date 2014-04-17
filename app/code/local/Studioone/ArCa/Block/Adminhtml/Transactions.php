@@ -21,9 +21,9 @@ class Studioone_ArCa_Block_Adminhtml_Transactions extends Mage_Adminhtml_Block_W
      */
     public function __construct()
     {
-        $this->_blockGroup = 'studioone_arca';
-        $this->_controller = 'adminhtml_orders';
-        $this->_headerText = Mage::helper('studioone_arca')->__('Manage Arca Transaction');
+     	$this->_controller = 'adminhtml_transactions';
+		$this->_blockGroup = 'arca';
+        $this->_headerText = Mage::helper('arca')->__('Manage Arca Transaction');
 
         parent::__construct();
 

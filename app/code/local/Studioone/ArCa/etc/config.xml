@@ -6,17 +6,7 @@
 			<version>0.0.2</version>
 		</Studioone_ArCa>
 	</modules>
-	<admin>
-		<routers>
-			<arca>
-				<use>admin</use>
-				<args>
-					<module>Studioone_ArCa</module>
-					<frontName>arca</frontName>
-				</args>
-			</arca>
-		</routers>
-	</admin>
+	
 	<global>
 		<blocks>
 			<arca>
@@ -121,6 +111,18 @@
 			</controller_action_postdispatch_checkout_onepage_saveOrder>
 		</events>
 	</frontend>
+  <admin>
+        <routers>
+			<slider>
+				<use>admin</use>
+				<args>
+					<module>Studioone_ArCa</module>
+					<frontName>ArCa Transactions</frontName>
+				</args>
+			</slider>
+        </routers>
+    </admin>
+	 
 	<!-- declare default configuration values for this module -->
 	<default>
 		<!-- 'payment' configuration section (tab) -->
@@ -132,7 +134,7 @@
 				<!-- model to handle logic for this payment method -->
 				<model>arca/payment</model>
 				<!-- order status for new orders paid by this payment method -->
-				<order_status>pending</order_status>
+				 <!-- <order_status>new</order_status>  -->
 				<!-- default title for payment checkout page and order view page -->
 				<title>ArCa Payment</title>
 				<payment_action>authorize</payment_action>

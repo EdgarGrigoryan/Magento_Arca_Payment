@@ -103,7 +103,7 @@ class Studioone_ArCa_Model_Interface  extends Mage_Payment_Model_Method_Abstract
 		$ret = curl_exec($ch);
 		Mage::log($ret, null, __CLASS__ . '.log');
 		if ($ret === false) {
-			Mage::log(curl_errorno($ch) . "#" . curl_error($ch), null, __CLASS__ . '.log');
+			Mage::log(curl_errno($ch) . "#" . curl_error($ch), null, __CLASS__ . '.log');
 
 			return $ret;
 		}
@@ -171,6 +171,37 @@ class Studioone_ArCa_Model_Interface  extends Mage_Payment_Model_Method_Abstract
 
 		return $arr;
 	}
+	public function checkBuilding($arca_out_arr)
+	{
+		
+		//Image building
+		Mage::log(print_r($arca_out_arr, 1), null, __FUNCTION__.'__'.__CLASS__ . '.log');
+		$isTestMode = Mage::getStoreConfig('payment/arca/testmode') == '1' ? 'test_' : '';
+		$resDir = Mage::getBaseDir('media').'/arca/default/';
+		$chekDir = Mage::getBaseDir('media').'/arca/orders/';
+		$im_in = imagecreatefromjpeg($resDir."check.jpg");
+		$im_out = ImageCreateTrueColor(320, 550);
+		ImageCopyResized($im_out, $im_in, 0, 0, 0, 0, 320, 550, 320, 550);
+		$font = $resDir."arial.ttf";
+		$bbox = ImageTTFBBox(11, 0,$font, "");
+		ImageTTFText($im_out, 10, 0, 150, 92, 50,$font, $arca_out_arr->datetime);
+		ImageTTFText($im_out, 10, 0, 150, 110, 50,$font, $arca_out_arr->amount ." AMD" );
+		ImageTTFText($im_out, 10, 0, 150, 145, 50,$font, $arca_out_arr->card_number);
+		ImageTTFText($im_out, 10, 0, 20, 185, 50,$font, $arca_out_arr->clientName);
+		ImageTTFText($im_out, 10, 0, 150, 218, 50,$font, $arca_out_arr->orderID);
+		ImageTTFText($im_out, 10, 0, 150, 236, 50,$font, Mage::getStoreConfig("payment/arca/{$isTestMode}mid"));
+		ImageTTFText($im_out, 10, 0, 150, 254, 50,$font, Mage::getStoreConfig("payment/arca/{$isTestMode}hostID"));
+		ImageTTFText($im_out, 10, 0, 150, 272, 50,$font, $arca_out_arr->stan);
+		ImageTTFText($im_out, 10, 0, 150, 290, 50,$font, $arca_out_arr->authcode);
+		ImageTTFText($im_out, 10, 0, 150, 308, 50,$font, $arca_out_arr->rrn);
+		ImageTTFText($im_out, 10, 0, 20, 374, 50,$font,   $arca_out_arr->trxnDetails);
+		$imgOriginal = "$chekDir/check_". $arca_out_arr->orderID .".jpg";
+		ImageJpeg($im_out, $imgOriginal, 100);
+		ImageDestroy($im_out);
+		ImageDestroy($im_in);
+		return 	$imgOriginal;
+	}
+	
 
 }
 
