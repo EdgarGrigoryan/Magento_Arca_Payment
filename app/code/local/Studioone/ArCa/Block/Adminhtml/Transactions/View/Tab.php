@@ -7,24 +7,37 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * @category    Studioone
- * @package     Studioone_Arca
+ * @category    Smasoft
+ * @package     Smasoft_Oneclikorder
  * @copyright   Copyright (c) 2013 Slabko Michail. <l.nagash@gmail.com>
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Studioone_ArCa_Block_Adminhtml_Transactions_View_Tab_View extends Mage_Adminhtml_Block_Widget_Form_Container {
-
+class Studioone_ArCa_Block_Adminhtml_Transactions_View_Tab extends Mage_Adminhtml_Block_Widget_Tabs {
 	public function __construct() {
-		$this -> _objectId = 'order_id';
-		$this -> _controller = 'sales_order';
-		$this -> _mode = 'view';
 		parent::__construct();
+		$this -> setId('sales_order_view_tabs');
+		$this -> setDestElementId('sales_order_view');
+		$this -> setTitle(Mage::helper('sales') -> __('Transaction View'));
 
-		$this -> setId('sales_order_view');
+		$_transaction = $this -> getTransaction();
 
-		$this->_addButton('confirm',array('label'=>''));
+		$state = $_transaction -> getState();
 
+		switch ($state) {
+			case 'pending' :
+			case 'success' :
+				$this -> _addButton('Check status', array('label' => $this -> __("Check Transaction status")));
+				break;
+			case 'checked' :
+				$this -> _addButton('Confirm Transaction', array('label' => $this -> __("Confirm Transaction ")));
+				$this -> _addButton('Cancel Transaction', array('label' => $this -> __("Cancel Transaction ")));
+
+				break;
+
+			default :
+				break;
+		}
 	}
 
 	/**
@@ -61,7 +74,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_View_Tab_View extends Mage_Adm
 	}
 
 	public function getHeaderText() {
-		return Mage::helper('sales') ->__('Transaction # %s | %s, Order #%s', $this -> getTransaction() -> getId(), $this -> formatDate($this -> getTransaction() -> getCreateDate(), 'medium', true), $this -> getOrder() -> getId());
+		return Mage::helper('sales') -> __('Transaction # %s | %s, Order #%s', $this -> getTransaction() -> getId(), $this -> formatDate($this -> getTransaction() -> getCreateDate(), 'medium', true), $this -> getOrder() -> getId());
 	}
 
 }

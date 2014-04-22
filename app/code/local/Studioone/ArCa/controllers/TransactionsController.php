@@ -13,7 +13,7 @@
  */
 
 
-class Studioone_ArCa_Adminhtml_ArCaController extends Mage_Adminhtml_Controller_Action
+class Studioone_ArCa_TransactionsController extends Mage_Adminhtml_Controller_Action
 {
 
     protected function _isActionAllowed($action)
@@ -58,19 +58,26 @@ class Studioone_ArCa_Adminhtml_ArCaController extends Mage_Adminhtml_Controller_
 
     public function viewAction()
     {
-        $transaction = Mage::getModel('studioone_arca/transactions')->load(
-            $this->getRequest()->getParam('id')
-        );
-        Mage::register('transaction', $transaction);
-        if (!$order->getId()) {
+    	
+		$transactionId = $this->getRequest()->getParam('id');
+		
+		
+        $transaction = Mage::getModel('arca/transactions')->load( $transactionId );
+		$order = Mage::getModel("sales/order") -> load($transaction->getOrderId());
+		
+		 
+        
+        Mage::register('arca_transaction', $transaction);
+		Mage::register('arca_transaction_order', $order);
+		 
+        if (!$order->getId()) 
+        {
             return $this->_redirect('*/*/index');
         }
         $this->loadLayout();
         $this->_initLayoutMessages('adminhtml/session');
         $this->_setActiveMenu('sales/arca');
-
-
-        $this->renderLayout();
+		$this->renderLayout();
     }
 
     /**

@@ -17,63 +17,112 @@
  * @copyright  Copyright (c) 2012 Skrill Holdings Ltd. (http://www.skrill.com)
  */
 
- class Studioone_ArCa_Model_Observer
- {
-     
-    public function setResponseAfterSaveOrder($observer){ Mage::log(__FUNCTION__ , null, __CLASS__.'.log');}
-    public function saveOrderAfterSubmit($observer){ Mage::log(__FUNCTION__ , null, __CLASS__.'.log');}
-    public function hookOrderSaveBefore($observer)
-    {
-    	
-		/*Mage::log(__FUNCTION__ , null, __CLASS__.'.log');
-        $event = $observer->getEvent();
-        $order = $event->getOrder();
-        $payment = $order->getPayment();
-         
-    	
-        $state = $order->getState();
-		Mage::log($state , null, __CLASS__.'.log');
-        if ((!$state ||
-            $state === Mage_Sales_Model_Order::STATE_NEW ||
-            $state === Mage_Sales_Model_Order::STATE_PROCESSING)
-            && !$payment->getCcTransId())
-        {
-            $order->setState(Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW);
-            $order->save();
-            
-            if ($order->hasInvoices())
-            {
-                $invoices = $order->getInvoiceCollection();
-                foreach ($invoices as $invoice)
-                {
-                	Mage::log($invoice->getState() , null, __CLASS__.'.log');
-					
-                    if ($invoice->getState() === Mage_Sales_Model_Order_Invoice::STATE_PAID)
-                    {
-                        $invoice->setState(Mage_Sales_Model_Order_Invoice::STATE_OPEN);
-                        $invoice->save();
-                    }
-                }
-            }
+class Studioone_ArCa_Model_Observer {
 
-            return $this;
-        }
-        
-        if ($order->hasInvoices())
-        {
-            $invoices = $order->getInvoiceCollection();
-            foreach ($invoices as $invoice)
-            {
-            	Mage::log($invoice->getState() , null, __CLASS__.'.log');
-                if ($invoice->getState() === Mage_Sales_Model_Order_Invoice::STATE_OPEN)
-                {
-                    $order->setState(Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW);
-                    break;
-                }
-            }
-        }*/
+	public function setResponseAfterSaveOrder($observer) { Mage::log(__FUNCTION__, null, __CLASS__ . '.log');
+	}
 
-        return $this;
-    }
- }
- 
+	public function saveOrderAfterSubmit($observer) { Mage::log(__FUNCTION__, null, __CLASS__ . '.log');
+	}
+
+	public function hookOrderSaveBefore($observer) {
+
+		return $this;
+	}
+
+	public function isDeveloper(Varien_Event_Observer $observer) {
+
+		$event = $observer -> getEvent();
+		$method = $event -> getMethodInstance();
+		$result = $event -> getResult();
+		if ('arca' == $method -> getCode()) {
+
+			$isTestMode = Mage::getStoreConfig('payment/arca/testmode');
+			$isDeveloper = (strstr(Mage::getStoreConfig('dev/restrict/allow_ips'), Mage::helper('core/http') -> getRemoteAddr())) ? true : false;
+
+			Mage::log(__FUNCTION__ . "\t isDeveloper \t" . ($isDeveloper ? 'Yes' : 'No') . "\t isTestMode " . isTestMode . "\t" . $method -> getCode() . "\t" . Mage::getStoreConfig('dev/restrict/allow_ips'), null, __CLASS__ . '.log');
+
+			if ($isTestMode == '1' && !$isDeveloper) {
+				$observer -> getEvent() -> getResult() -> isAvailable = false;
+			}
+
+		}
+
+	}
+
+	public function isArcaOnly(Varien_Event_Observer $observer) {
+
+		$event = $observer -> getEvent();
+		$method = $event -> getMethodInstance();
+		$result = $event -> getResult();
+
+		
+
+		if ('arca' == $method -> getCode()) 
+		{
+			$attribute_set = Mage::getStoreConfig('payment/arca/attribute_set');
+			$attribute_sets = explode(',', $attribute_set);
+			Mage::log(__FUNCTION__ . "\t" . $attribute_set . $method -> getCode(), null, __CLASS__ . '.log');
+			
+			if(empty($attribute_sets))
+			{
+				return ;
+			}
+			$arca = true;
+			
+
+			foreach (Mage::getSingleton('checkout/cart')->getQuote()->getAllVisibleItems() as $item) 
+			{
+				if (! in_array($item -> getProduct() -> getAttributeSetId(), $attribute_sets)) 
+				{
+					$observer -> getEvent() -> getResult() -> isAvailable = false;
+					return ;
+				}
+			}
+			
+		}
+	}
+
+	public function isMethodActive(Varien_Event_Observer $observer) {
+
+		$event = $observer -> getEvent();
+		$method = $event -> getMethodInstance();
+		$result = $event -> getResult();
+
+		$isTestMode = Mage::getStoreConfig('payment/arca/testmode');
+
+		Mage::log(Mage::getStoreConfig('dev/restrict/allow_ips'), null, __CLASS__ . __FUNCTION__ . '.log');
+
+		$isDeveloper = (strstr(Mage::getStoreConfig('dev/restrict/allow_ips'), Mage::helper('core/http') -> getRemoteAddr())) ? true : false;
+
+		$isMethodActiove = ($isTestMode == '1' && !$isDeveloper) ? 'NO' : 'Yes';
+
+		Mage::log('$isMethodActiove=' . $isMethodActiove, null, __CLASS__ . __FUNCTION__ . '.log');
+
+		if ($isTestMode == '1' && !$isDeveloper) {
+			return false;
+		}
+
+		return $this -> arcaOnly($observer);
+
+	}
+
+	public function arcaOnly(Varien_Event_Observer $observer) {
+		$event = $observer -> getEvent();
+		$method = $event -> getMethodInstance();
+		$result = $event -> getResult();
+		$cardonly = true;
+
+		foreach (Mage::getSingleton('checkout/cart')->getQuote()->getAllVisibleItems() as $item) {
+			if (!$item -> getProduct() -> getArcaOnly()) {
+				$cardonly = false;
+			}
+		}
+
+		if ($method -> getCode() !== "arca" && $cardonly) {
+			$result -> isAvailable = false;
+		}
+
+	}
+
+}

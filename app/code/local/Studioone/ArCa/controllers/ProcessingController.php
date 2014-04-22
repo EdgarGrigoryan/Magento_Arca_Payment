@@ -37,15 +37,13 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 
 		$postData = Mage::app() -> getRequest() -> getPost();
 		$order_id = Mage::app() -> getRequest() -> getParam('order_id');
-
+		$logModel = Mage::getModel('arca/transactions_log');
 		if (!empty($postData)) {
 
 			Mage::log(print_r($postData, 1), null, __CLASS__ . '.log');
 
 			$url = "https://www.arca.am:8194/ssljson.yaws";
-			// Merchant should use the URL provided by ArCa!!!
-			$url_test = "https://91.199.226.106/ssljson.php";
-			// Merchant should use the URL provided by ArCa!!!
+			
 			$orderID = Mage::app() -> getRequest() -> getParam('order_id');
 			$respcode = Mage::app() -> getRequest() -> getParam('respcode');
 			$opaque = Mage::app() -> getRequest() -> getParam('opaque');
@@ -73,7 +71,7 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 			$arcaInterface = Mage::getModel('arca/Interface');
 			$arcaRespons = $arcaInterface -> check($json_params, 'merchant_check', $checkUrl);
 			Mage::log(print_r($arcaRespons, 1), null, __CLASS__ . '.log');
-			$logModel = Mage::getModel('arca/transactions_log');
+			
 
 			foreach ($arcaRespons as $key => $value) {
 				if (isset($value -> respcode)) {
@@ -102,16 +100,35 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 			}
 			Mage::log(print_r($arcaRespons, 1), null, __CLASS__ . '.log');
 		} elseif ($order_id) {
-			$this -> _successAction($order_id);
-			//$this -> _cancelAction($order_id);
+			//$this -> _successAction($order_id);
+			$this -> _cancelAction($order_id);
 
 		} else {
 
 		}
-
-		$this -> loadLayout() -> _initLayoutMessages('checkout/session') -> _initLayoutMessages('catalog/session') -> getLayout() -> getBlock('head') -> getLayout() -> getBlock('arca.result') -> setMessage($this -> _message) -> setTransactionId($logModel -> getTransactionId()) -> setTitle($this -> __('Arca Payment Result'));
-
-		$this -> renderLayout();
+		if($logModel)
+		{
+			$this -> loadLayout() 
+			-> _initLayoutMessages('checkout/session') 
+			-> _initLayoutMessages('catalog/session') 
+			-> getLayout() -> getBlock('head') 
+			-> getLayout() -> getBlock('arca.result') 
+			-> setMessage($this -> _message) 
+			-> setTransactionId($logModel -> getTransactionId()) -> setTitle($this -> __('Arca Payment Result'));
+	
+			$this -> renderLayout();
+		}else
+		{
+			$this -> _message = $this->__("Error During Operation");
+			$this -> loadLayout() 
+			-> _initLayoutMessages('checkout/session') 
+			-> _initLayoutMessages('catalog/session') 
+			-> getLayout() -> getBlock('head') 
+			-> getLayout() -> getBlock('arca.result') 
+			-> setMessage($this -> _message) 
+			-> setTitle($this -> __('Arca Payment Result'));
+			
+		}
 	}
 
 	protected function _successAction($transactionId) {
@@ -120,7 +137,6 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 			$transaction = Mage::getModel('arca/transactions') -> load($transactionId);
 			$transaction -> setStatus('cheched');
 			$transaction -> save();
-
 			$url = "https://www.arca.am:8194/ssljson.yaws";
 			// Merchant should use the URL provided by ArCa!!!
 			$url_test = "https://91.199.226.106/ssljson.php";
@@ -223,16 +239,25 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 
 	public function indexAction() {
 
+
 		if (false == ($transaction = $this -> _saveArcaTransaction())) {
 			Mage::getSingleton('checkout/session') -> setArcaTransactionId($transaction -> getTransactionId());
 		}
-
-		$this -> loadLayout() -> _initLayoutMessages('checkout/session') -> _initLayoutMessages('catalog/session') -> getLayout() -> getBlock('head') -> setTitle($this -> __('Arca Payment')) -> getLayout() -> getBlock('form.arca') -> setArcaTransactionId($transaction -> getTransactionId());
+		 
+		$this -> loadLayout() 
+		-> _initLayoutMessages('checkout/session') 
+		-> _initLayoutMessages('catalog/session') 
+		-> getLayout() 
+		-> getBlock('head') 
+		-> setTitle($this -> __('Arca Payment')) -> getLayout() 
+		-> getBlock('form.arca') 
+		-> setArcaTransactionId($transaction -> getTransactionId());
 
 		$this -> renderLayout();
 	}
 
-	public function _saveArcaTransaction() {
+	public function _saveArcaTransaction() 
+	{
 
 		$_getCheckout = $this -> _getCheckout();
 

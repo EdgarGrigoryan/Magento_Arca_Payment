@@ -13,7 +13,7 @@
 			<children>
 				<arca translate="title" module="arca">
 					<title>Arca Transactions</title>
-					<action>arca/adminhtml_arca/index</action>
+					<action>arca/transactions/index</action>
 					<sort_order>20</sort_order>
 				</arca>
 			</children>

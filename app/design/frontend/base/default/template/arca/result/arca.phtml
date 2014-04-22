@@ -2,7 +2,7 @@
 <?php
 echo $this->getMessage();
 ?>
-	
-	<img src="<?php echo  Mage::getBaseUrl('media').'/arca/orders/check_'.$this->getTransactionId().'.jpg' ?>/>
-	
+	<?php if( null!= ($transcationId =$this->getTransactionId())):?>
+	<img src="<?php echo  Mage::getBaseUrl('media').'/arca/orders/check_'.$transcationId.'.jpg' ?>/>
+	<?php endif;?>
 </div>

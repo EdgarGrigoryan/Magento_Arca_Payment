@@ -6,7 +6,17 @@
 			<version>0.0.2</version>
 		</Studioone_ArCa>
 	</modules>
-	
+	<admin>
+		<routers>
+			<arca>
+				<use>admin</use>
+				<args>
+					<module>Studioone_ArCa</module>
+					<frontName>arca</frontName>
+				</args>
+			</arca>
+		</routers>
+	</admin>
 	<global>
 		<blocks>
 			<arca>
@@ -23,6 +33,20 @@
 					</studioone_arca_model_observer>
 				</observers>
 			</sales_order_save_before>
+			<payment_method_is_active>
+				<observers>
+					<arca_payment_method_is_developer>
+						<type>singleton</type>
+						<class>Studioone_ArCa_Model_Observer</class>
+						<method>isDeveloper</method>
+					</arca_payment_method_is_developer>
+					<arca_payment_method_is_arca_only>
+						<type>singleton</type>
+						<class>Studioone_ArCa_Model_Observer</class>
+						<method>isArcaOnly</method>
+					</arca_payment_method_is_arca_only>
+				</observers>
+			</payment_method_is_active>
 		</events>
 		<helpers>
 			<arca>
@@ -111,18 +135,16 @@
 			</controller_action_postdispatch_checkout_onepage_saveOrder>
 		</events>
 	</frontend>
-  <admin>
-        <routers>
-			<slider>
-				<use>admin</use>
-				<args>
-					<module>Studioone_ArCa</module>
-					<frontName>ArCa Transactions</frontName>
-				</args>
-			</slider>
-        </routers>
-    </admin>
-	 
+	<adminhtml>
+		<layout>
+			<updates>
+				<arca>
+					<file>arca.xml</file>
+				</arca>
+			</updates>
+		</layout>
+
+	</adminhtml>
 	<!-- declare default configuration values for this module -->
 	<default>
 		<!-- 'payment' configuration section (tab) -->
@@ -134,7 +156,7 @@
 				<!-- model to handle logic for this payment method -->
 				<model>arca/payment</model>
 				<!-- order status for new orders paid by this payment method -->
-				 <!-- <order_status>new</order_status>  -->
+				<!-- <order_status>new</order_status>  -->
 				<!-- default title for payment checkout page and order view page -->
 				<title>ArCa Payment</title>
 				<payment_action>authorize</payment_action>

@@ -44,7 +44,7 @@ class Studioone_ArCa_Block_Form_Arca extends Mage_Payment_Block_Form
     {
         parent::_construct();
         $this->setTemplate('arca/form/arca.phtml');
-		Mage::log('My log entry', null, 'Studioone_ArCa_Block_Form_Arca.log');
+		 
     }
 
     /**

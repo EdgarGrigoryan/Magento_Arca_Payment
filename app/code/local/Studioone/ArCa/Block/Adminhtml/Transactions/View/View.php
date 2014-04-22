@@ -13,7 +13,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Studioone_ArCa_Block_Adminhtml_Transactions_View_Tab_View extends Mage_Adminhtml_Block_Widget_Form_Container {
+class Studioone_ArCa_Block_Adminhtml_Transactions_View extends Mage_Adminhtml_Block_Widget_Form_Container {
 
 	public function __construct() {
 		$this -> _objectId = 'order_id';
@@ -23,7 +23,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_View_Tab_View extends Mage_Adm
 
 		$this -> setId('sales_order_view');
 
-		$this->_addButton('confirm',array('label'=>''));
+		
 
 	}
 
@@ -60,8 +60,7 @@ class Studioone_ArCa_Block_Adminhtml_Transactions_View_Tab_View extends Mage_Adm
 		return $this -> getUrl('*/*/index');
 	}
 
-	public function getHeaderText() {
-		return Mage::helper('sales') ->__('Transaction # %s | %s, Order #%s', $this -> getTransaction() -> getId(), $this -> formatDate($this -> getTransaction() -> getCreateDate(), 'medium', true), $this -> getOrder() -> getId());
-	}
+
+	
 
 }
