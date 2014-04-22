@@ -43,7 +43,7 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 			Mage::log(print_r($postData, 1), null, __CLASS__ . '.log');
 
 			$url = "https://www.arca.am:8194/ssljson.yaws";
-			
+
 			$orderID = Mage::app() -> getRequest() -> getParam('order_id');
 			$respcode = Mage::app() -> getRequest() -> getParam('respcode');
 			$opaque = Mage::app() -> getRequest() -> getParam('opaque');
@@ -71,7 +71,6 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 			$arcaInterface = Mage::getModel('arca/Interface');
 			$arcaRespons = $arcaInterface -> check($json_params, 'merchant_check', $checkUrl);
 			Mage::log(print_r($arcaRespons, 1), null, __CLASS__ . '.log');
-			
 
 			foreach ($arcaRespons as $key => $value) {
 				if (isset($value -> respcode)) {
@@ -106,28 +105,14 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 		} else {
 
 		}
-		if($logModel)
-		{
-			$this -> loadLayout() 
-			-> _initLayoutMessages('checkout/session') 
-			-> _initLayoutMessages('catalog/session') 
-			-> getLayout() -> getBlock('head') 
-			-> getLayout() -> getBlock('arca.result') 
-			-> setMessage($this -> _message) 
-			-> setTransactionId($logModel -> getTransactionId()) -> setTitle($this -> __('Arca Payment Result'));
-	
+		if ($logModel) {
+			$this -> loadLayout() -> _initLayoutMessages('checkout/session') -> _initLayoutMessages('catalog/session') -> getLayout() -> getBlock('head') -> getLayout() -> getBlock('arca.result') -> setMessage($this -> _message) -> setTransactionId($logModel -> getTransactionId()) -> setTitle($this -> __('Arca Payment Result'));
+
 			$this -> renderLayout();
-		}else
-		{
-			$this -> _message = $this->__("Error During Operation");
-			$this -> loadLayout() 
-			-> _initLayoutMessages('checkout/session') 
-			-> _initLayoutMessages('catalog/session') 
-			-> getLayout() -> getBlock('head') 
-			-> getLayout() -> getBlock('arca.result') 
-			-> setMessage($this -> _message) 
-			-> setTitle($this -> __('Arca Payment Result'));
-			
+		} else {
+			$this -> _message = $this -> __("Error During Operation");
+			$this -> loadLayout() -> _initLayoutMessages('checkout/session') -> _initLayoutMessages('catalog/session') -> getLayout() -> getBlock('head') -> getLayout() -> getBlock('arca.result') -> setMessage($this -> _message) -> setTitle($this -> __('Arca Payment Result'));
+
 		}
 	}
 
@@ -164,18 +149,17 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 		}
 	}
 
-	protected function _updateInvoce($transactionId) 
-	{
+	protected function _updateInvoce($transactionId) {
 		$transaction = Mage::getModel('arca/transactions') -> load($transactionId);
 		$order_id = $transaction -> getOrderId();
 		echo $transaction -> getInvoiceId();
-		
-		die;
-		$invoice = Mage::getModel('sales/service_order', $order) ->load($transaction -> getInvoiceId());
+
+		die ;
+		$invoice = Mage::getModel('sales/service_order', $order) -> load($transaction -> getInvoiceId());
 		$invoice -> setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
 		$transactionSave = Mage::getModel('core/resource_transaction') -> addObject($invoice) -> addObject($invoice -> getOrder());
 		$transactionSave -> save();
-		
+
 	}
 
 	protected function _createInvoce($transactionId) {
@@ -184,26 +168,31 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 		$order_id = $transaction -> getOrderId();
 
 		$order = Mage::getModel("sales/order") -> load($order_id);
+		if (!$order -> hasInvoices()) {
+			if (!$order -> canInvoice()) {
 
-		if (!$order -> canInvoice()) {
+				Mage::throwException(Mage::helper('core') -> __('Cannot create an invoice.'));
+			}
 
-			Mage::throwException(Mage::helper('core') -> __('Cannot create an invoice.'));
+			$invoice = Mage::getModel('sales/service_order', $order) -> prepareInvoice();
+			if (!$invoice -> getTotalQty()) {
+				Mage::throwException(Mage::helper('core') -> __('Cannot create an invoice without products.'));
+			}
+			//$invoice -> setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
+			$invoice -> register();
+
+			$transactionSave = Mage::getModel('core/resource_transaction') -> addObject($invoice) -> addObject($invoice -> getOrder());
+
+			$transactionSave -> save();
+			$this -> _message = $this -> __('Order %s payment complete', $order_id);
+			return $invoice -> getId();
+
+		} else {
+			foreach ($order->getInvoiceCollection() as $inv) {
+				return $inv -> getIncrementId();
+				//other invoice details...
+			}
 		}
-
-		$invoice = Mage::getModel('sales/service_order', $order) -> prepareInvoice();
-		if (!$invoice -> getTotalQty()) {
-			Mage::throwException(Mage::helper('core') -> __('Cannot create an invoice without products.'));
-		}
-		//$invoice -> setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
-		$invoice -> register();
-
-		$transactionSave = Mage::getModel('core/resource_transaction') -> addObject($invoice) -> addObject($invoice -> getOrder());
-
-		$transactionSave -> save();
-		$this -> _message = $this -> __('Order %s payment complete', $order_id);
-		// $order -> setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, true) -> save();
-
-		return $invoice -> getId();
 
 	}
 
@@ -239,25 +228,16 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 
 	public function indexAction() {
 
-
 		if (false == ($transaction = $this -> _saveArcaTransaction())) {
 			Mage::getSingleton('checkout/session') -> setArcaTransactionId($transaction -> getTransactionId());
 		}
-		 
-		$this -> loadLayout() 
-		-> _initLayoutMessages('checkout/session') 
-		-> _initLayoutMessages('catalog/session') 
-		-> getLayout() 
-		-> getBlock('head') 
-		-> setTitle($this -> __('Arca Payment')) -> getLayout() 
-		-> getBlock('form.arca') 
-		-> setArcaTransactionId($transaction -> getTransactionId());
+
+		$this -> loadLayout() -> _initLayoutMessages('checkout/session') -> _initLayoutMessages('catalog/session') -> getLayout() -> getBlock('head') -> setTitle($this -> __('Arca Payment')) -> getLayout() -> getBlock('form.arca') -> setArcaTransactionId($transaction -> getTransactionId());
 
 		$this -> renderLayout();
 	}
 
-	public function _saveArcaTransaction() 
-	{
+	public function _saveArcaTransaction() {
 
 		$_getCheckout = $this -> _getCheckout();
 
@@ -267,6 +247,9 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 		Mage::log($order -> getGrandTotal(), null, __CLASS__ . '.log');
 
 		try {
+
+		 	Mage::getModel("arca/transactions")->load( $_getCheckout -> getLastOrderId(),'order_id'  )->delete();//
+			
 
 			$model = Mage::getModel('arca/transactions');
 			$model -> setCustomerId($this -> _getCustomer() -> getId());
