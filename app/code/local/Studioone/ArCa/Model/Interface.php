@@ -2,7 +2,9 @@
 
 class Studioone_ArCa_Model_Interface  extends Mage_Payment_Model_Method_Abstract {
 	public function throwError($val) {
-		Mage::log($val, null, __CLASS__ . '.log');
+		
+		$debug = debug_backtrace();
+		Mage::log($val."\n".print_r($debug,1), null, __CLASS__ . '.log');
 		die ;
 	}
 

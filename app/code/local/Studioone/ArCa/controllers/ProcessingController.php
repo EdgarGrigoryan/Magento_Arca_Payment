@@ -43,6 +43,7 @@ class Studioone_ArCa_ProcessingController extends Mage_Core_Controller_Front_Act
 			Mage::log(print_r($postData, 1), null, __CLASS__ . '.log');
 
 			$url = "https://www.arca.am:8194/ssljson.yaws";
+			$url_test = "https://91.199.226.106/ssljson.php";
 
 			$orderID = Mage::app() -> getRequest() -> getParam('order_id');
 			$respcode = Mage::app() -> getRequest() -> getParam('respcode');
